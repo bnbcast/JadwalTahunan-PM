@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zaky Azhari – Junior Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of a junior developer: C++, Python, JavaScript, React, Vue."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0e1014;
+        --surface: #161920;
+        --line: #262a33;
+        --text: #e9eaee;
+        --muted: #9aa0ad;
+        --accent: #7c8cff;
+        --on-accent: #0e1014;
+        --sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+      }
+      :root[data-theme="light"] {
+        --bg: #f7f7f5;
+        --surface: #fff;
+        --line: #e2e2de;
+        --text: #16181d;
+        --muted: #5d6370;
+        --on-accent: #fff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 70px;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 400 16px/1.65 var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+      .wrap {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--mono);
+        line-height: 1.15;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      nav .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 58px;
+      }
+      nav .brand {
+        font: 700 15px var(--mono);
+        text-decoration: none;
+      }
+      nav ul {
+        display: flex;
+        gap: 22px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      nav a:hover {
+        color: var(--text);
+      }
+      #theme {
+        background: none;
+        border: 1px solid var(--line);
+        color: var(--text);
+        border-radius: 8px;
+        width: 34px;
+        height: 34px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+      .hero {
+        padding: 96px 0 72px;
+      }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font: 500 13px var(--mono);
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        padding: 5px 12px;
+      }
+      .status i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #3ddc97;
+        animation: pulse 2s ease-out infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(61, 220, 151, 0.6);
+        }
+        100% {
+          box-shadow: 0 0 0 9px rgba(61, 220, 151, 0);
+        }
+      }
+      .hero h1 {
+        font-size: clamp(36px, 6.5vw, 68px);
+        margin: 22px 0 18px;
+        max-width: 15ch;
+      }
+      .hero p {
+        max-width: 56ch;
+        color: var(--muted);
+        font-size: 18px;
+        margin: 0 0 30px;
+      }
+      .btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-block;
+        padding: 11px 20px;
+        border-radius: 9px;
+        font: 500 14px var(--sans);
+        text-decoration: none;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        cursor: pointer;
+        color: var(--text);
+      }
+      .btn:hover {
+        border-color: var(--muted);
+      }
+      .btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--on-accent);
+        box-shadow: 0 0 24px -6px var(--accent);
+      }
+      section {
+        padding: 64px 0;
+      }
+      section > .wrap > h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+      .sub {
+        color: var(--muted);
+        margin: 0 0 36px;
+        max-width: 60ch;
+      }
+      .grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .preview {
+        position: relative;
+        aspect-ratio: 16/10;
+        background: linear-gradient(
+          135deg,
+          color-mix(in srgb, var(--accent) 22%, var(--surface)),
+          var(--surface)
+        );
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        padding: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        width: 100%;
+        color: var(--text);
+        font: inherit;
+      }
+      .preview img,
+      .preview video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .preview .ph {
+        font: 700 44px var(--mono);
+        opacity: 0.55;
+      }
+      .play {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        padding: 6px 14px;
+        font: 500 13px var(--mono);
+      }
+      button.preview {
+        cursor: pointer;
+      }
+      button.preview:hover .play {
+        background: var(--accent);
+        color: var(--on-accent);
+        border-color: var(--accent);
+      }
+      .body {
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        flex: 1;
+      }
+      .card h3 {
+        font-size: 19px;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .tags li {
+        font: 500 12px var(--mono);
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 2px 9px;
+      }
+      .card .btns {
+        margin-top: auto;
+        padding-top: 4px;
+      }
+      .card .btn {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+      .all {
+        margin-top: 56px;
+      }
+      .all h3 {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+      .tools {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin: 18px 0 22px;
+      }
+      .search {
+        width: 100%;
+        max-width: 420px;
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 10px 14px;
+        font: 400 15px var(--sans);
+      }
+      .search::placeholder {
+        color: var(--muted);
+      }
+      .fchips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .fchip {
+        background: none;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        padding: 4px 13px;
+        font: 500 13px var(--mono);
+        cursor: pointer;
+      }
+      .fchip:hover {
+        color: var(--text);
+        border-color: var(--muted);
+      }
+      .fchip[aria-pressed="true"] {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--on-accent);
+      }
+      .count {
+        font: 500 13px var(--mono);
+        color: var(--muted);
+        margin: 0 0 14px;
+      }
+      .rows {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+      }
+      .row {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .row h4 {
+        font: 700 16px var(--mono);
+        margin: 0;
+      }
+      .row p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .row .btns {
+        margin-top: auto;
+        padding-top: 4px;
+        gap: 8px;
+      }
+      .row .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .empty {
+        color: var(--muted);
+      }
+      #more {
+        margin-top: 20px;
+      }
+      .skills {
+        display: grid;
+        gap: 28px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .skills h3 {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 12px;
+        font-weight: 500;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .chips li {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 5px 12px;
+        font-size: 14px;
+      }
+      .about p {
+        max-width: 62ch;
+        margin: 0 0 16px;
+      }
+      .learning {
+        font: 500 14px var(--mono);
+        color: var(--accent);
+      }
+      .contact a.mail {
+        font: 700 clamp(20px, 4vw, 32px) var(--mono);
+        text-decoration: none;
+        border-bottom: 2px solid var(--accent);
+      }
+      .links {
+        display: flex;
+        gap: 20px;
+        margin-top: 26px;
+        flex-wrap: wrap;
+      }
+      .links a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .links a:hover {
+        color: var(--text);
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 26px 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      dialog {
+        width: min(1000px, 94vw);
+        height: min(720px, 88vh);
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        color: var(--text);
+        flex-direction: column;
+      }
+      dialog[open] {
+        display: flex;
+        animation: pop 0.18s ease-out;
+      }
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.65);
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: scale(0.97);
+        }
+      }
+      .dhead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--line);
+        font: 500 13px var(--mono);
+      }
+      .dhead div {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .dhead .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      dialog iframe {
+        flex: 1;
+        border: 0;
+        width: 100%;
+        background: #fff;
+      }
+      .dnote {
+        padding: 8px 16px;
+        font-size: 13px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+      }
+      @media (max-width: 640px) {
+        nav ul li:not(:last-child) {
+          display: none;
+        }
+        .hero {
+          padding: 64px 0 48px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="wrap">
+        <a class="brand" href="#top" id="brand"></a>
+        <ul id="navlinks"></ul>
+      </div>
+    </nav>
+
+    <main id="top">
+      <header class="hero">
+        <div class="wrap">
+          <span class="status"><i></i><span id="status"></span></span>
+          <h1 id="headline"></h1>
+          <p id="pitch"></p>
+          <div class="btns" id="heroBtns"></div>
+        </div>
+      </header>
+
+      <section id="projects">
+        <div class="wrap">
+          <h2>Projects</h2>
+          <p class="sub">
+            Each one runs live. Open the demo to try it here, or visit the
+            deployed app.
+          </p>
+          <div class="grid" id="projectGrid"></div>
+          <div class="all" id="allProjects">
+            <h3>All projects</h3>
+            <div class="tools">
+              <input
+                class="search"
+                id="q"
+                type="search"
+                placeholder="Search by name, topic or tech"
+                aria-label="Search projects"
+              />
+              <div
+                class="fchips"
+                id="fchips"
+                role="group"
+                aria-label="Filter by technology"
+              ></div>
+            </div>
+            <p class="count" id="count" aria-live="polite"></p>
+            <div class="rows" id="projectList"></div>
+            <p class="empty" id="empty" hidden>
+              No projects match. Clear the search or pick another technology.
+            </p>
+            <button class="btn" id="more"></button>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="wrap">
+          <h2>Skills</h2>
+          <p class="sub">Grouped by what I have used in a project.</p>
+          <div class="skills" id="skillGrid"></div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="wrap about">
+          <h2 style="margin-bottom: 22px">About</h2>
+          <div id="aboutText"></div>
+          <p class="learning" id="learning"></p>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="wrap contact">
+          <h2 style="margin-bottom: 22px">Contact</h2>
+          <a class="mail" id="mail"></a>
+          <div class="links" id="links"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer><div class="wrap" id="foot"></div></footer>
+
+    <dialog id="demo" aria-label="Live demo">
+      <div class="dhead">
+        <span id="dtitle"></span>
+        <div>
+          <a class="btn" id="dopen" target="_blank" rel="noopener"
+            >Open in new tab</a
+          ><button class="btn" id="dclose">Close</button>
+        </div>
+      </div>
+      <iframe
+        id="dframe"
+        title="Live demo"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+      ></iframe>
+      <div class="dnote">
+        If the demo stays blank, the site blocks embedding. Use “Open in new
+        tab”.
+      </div>
+    </dialog>
+
+    <script>
+      /* ============================================================
+   EDIT THIS BLOCK. Everything on the page is built from it.
+   demo.type: "iframe" (opens in modal) | "link" | "video" (mp4/gif preview)
+   Delete a section name from `sections` to hide it.
+   ============================================================ */
+      const CONFIG = {
+        name: "Zaky Azhari",
+        role: "Junior Developer",
+        headline: "I build things that run, then explain how.",
+        pitch:
+          "Junior developer working in C++, Python, JavaScript, React and Vue. I like small, finished projects with a live demo you can click.",
+        status: "Open to junior roles",
+        accent: "#7c8cff",
+        theme: "dark", // "dark" or "light" (visitor toggle overrides)
+        sections: ["projects", "skills", "about", "contact"],
+        links: {
+          github: "https://github.com/yourname",
+          linkedin: "https://linkedin.com/in/yourname",
+          email: "zakyazhari393@gmail.com",
+        },
+        projects: [
+          {
+            featured: true,
+            date: "2026-09",
+            title: "Task Board",
+            problem:
+              "A drag-and-drop kanban board that keeps state in the browser, built to learn React state management.",
+            stack: ["React", "Vite", "CSS"],
+            repo: "https://github.com/yourname/task-board",
+            image: "",
+            demo: { type: "iframe", url: "https://example.com" },
+          },
+          {
+            featured: true,
+            date: "2026-07",
+            title: "Weather Dashboard",
+            problem:
+              "Search any city and see a 5-day forecast, with a Vue component per day and cached API calls.",
+            stack: ["Vue", "REST API", "Netlify"],
+            repo: "https://github.com/yourname/weather",
+            image: "",
+            demo: { type: "iframe", url: "https://example.com" },
+          },
+          {
+            featured: true,
+            date: "2026-05",
+            title: "CSV Cleaner",
+            problem:
+              "Streamlit app that finds duplicates and bad rows in a CSV and exports a cleaned file. Free host sleeps, so the first load is slow.",
+            stack: ["Python", "Pandas", "Streamlit"],
+            repo: "https://github.com/yourname/csv-cleaner",
+            image: "",
+            demo: { type: "link", url: "https://example.com" },
+          },
+          /* Projects without featured:true go in the searchable "All projects" list. date is optional (newest first). */
+          {
+            date: "2026-08",
+            title: "Portfolio Site",
+            problem: "This site. One HTML file driven by a config block.",
+            stack: ["JavaScript", "CSS"],
+            repo: "https://github.com/yourname/portfolio",
+            demo: { type: "link", url: "https://example.com" },
+          },
+          {
+            date: "2026-06",
+            title: "Chess Move Validator",
+            problem:
+              "Rules engine that checks legal moves, written in C++ with unit tests.",
+            stack: ["C++", "CMake"],
+            repo: "https://github.com/yourname/chess-validator",
+            demo: { type: "none" },
+          },
+          {
+            date: "2026-04",
+            title: "Expense Tracker",
+            problem:
+              "Vue app that groups spending by category and charts it per month.",
+            stack: ["Vue", "Chart.js"],
+            repo: "https://github.com/yourname/expenses",
+            demo: { type: "iframe", url: "https://example.com" },
+          },
+          {
+            date: "2026-03",
+            title: "Discord Quiz Bot",
+            problem:
+              "Python bot that runs trivia rounds and keeps a leaderboard.",
+            stack: ["Python", "SQLite"],
+            repo: "https://github.com/yourname/quiz-bot",
+            demo: { type: "none" },
+          },
+          {
+            date: "2026-02",
+            title: "Markdown Notes",
+            problem: "React notes app with live Markdown preview and search.",
+            stack: ["React", "Markdown"],
+            repo: "https://github.com/yourname/notes",
+            demo: { type: "iframe", url: "https://example.com" },
+          },
+          {
+            date: "2026-01",
+            title: "Sorting Visualizer",
+            problem:
+              "Animated bubble, merge and quick sort in plain JavaScript.",
+            stack: ["JavaScript", "Canvas"],
+            repo: "https://github.com/yourname/sorting",
+            demo: { type: "link", url: "https://example.com" },
+          },
+          {
+            date: "2025-11",
+            title: "Tiny Shell",
+            problem:
+              "A Unix-style shell in C++ with pipes and basic job control.",
+            stack: ["C++", "Linux"],
+            repo: "https://github.com/yourname/tiny-shell",
+            demo: { type: "none" },
+          },
+        ],
+        skills: {
+          Languages: ["C++", "Python", "JavaScript"],
+          Frontend: ["React", "Vue", "HTML & CSS"],
+          Tools: ["Git", "GitHub Actions", "Vercel", "Linux"],
+        },
+        about: [
+          "Replace this with 3 or 4 sentences: how you started, what you enjoy building, and what kind of team you want to join.",
+          "Mention one concrete thing you learned the hard way. It tells a recruiter more than a list of buzzwords.",
+        ],
+        learning:
+          "Currently learning: C++ to WebAssembly, so my C++ projects can run in the browser.",
+      };
+      /* ============================================================ */
+
+      const $ = (id) => document.getElementById(id);
+      const C = CONFIG,
+        has = (s) => C.sections.includes(s);
+      const el = (tag, props = {}, kids = []) => {
+        const n = Object.assign(document.createElement(tag), props);
+        [].concat(kids).forEach((k) => n.append(k));
+        return n;
+      };
+
+      /* theme */
+      document.documentElement.style.setProperty("--accent", C.accent);
+      let theme = C.theme;
+      try {
+        theme = localStorage.getItem("theme") || theme;
+      } catch (e) {}
+      const applyTheme = (t) => {
+        document.documentElement.dataset.theme = t;
+        $("theme") && ($("theme").textContent = t === "dark" ? "☾" : "☀");
+      };
+      applyTheme(theme);
+
+      /* header + hero */
+      document.title = `${C.name} – ${C.role}`;
+      $("brand").textContent = `~/${C.name.toLowerCase().replace(/\s+/g, "-")}`;
+      $("status").textContent = C.status;
+      $("headline").textContent = C.headline;
+      $("pitch").textContent = C.pitch;
+
+      const nav = $("navlinks");
+      C.sections.forEach((s) =>
+        nav.append(
+          el(
+            "li",
+            {},
+            el("a", {
+              href: "#" + s,
+              textContent: s[0].toUpperCase() + s.slice(1),
+            }),
+          ),
+        ),
+      );
+      const tbtn = el("button", {
+        id: "theme",
+        ariaLabel: "Toggle light or dark theme",
+      });
+      tbtn.onclick = () => {
+        theme =
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        applyTheme(theme);
+        try {
+          localStorage.setItem("theme", theme);
+        } catch (e) {}
+      };
+      nav.append(el("li", {}, tbtn));
+      applyTheme(theme);
+
+      $("heroBtns").append(
+        has("projects")
+          ? el("a", {
+              className: "btn primary",
+              href: "#projects",
+              textContent: "View projects",
+            })
+          : "",
+        el("a", {
+          className: "btn",
+          href: C.links.linkedin,
+          target: "_blank",
+          rel: "noopener",
+          textContent: "LinkedIn",
+        }),
+        el("a", {
+          className: "btn",
+          href: C.links.github,
+          target: "_blank",
+          rel: "noopener",
+          textContent: "GitHub",
+        }),
+      );
+
+      /* demo modal */
+      const dlg = $("demo"),
+        frame = $("dframe");
+      function openDemo(p) {
+        $("dtitle").textContent = p.title;
+        $("dopen").href = p.demo.url;
+        frame.src = p.demo.url;
+        dlg.showModal();
+      }
+      function closeDemo() {
+        dlg.close();
+      }
+      dlg.addEventListener("close", () => {
+        frame.src = "about:blank";
+      });
+      $("dclose").onclick = closeDemo;
+      dlg.addEventListener("click", (e) => {
+        if (e.target === dlg) closeDemo();
+      });
+
+      /* projects */
+      const grid = $("projectGrid");
+      C.projects
+        .filter((p) => p.featured)
+        .forEach((p) => {
+          let media;
+          const inner = [];
+          if (p.demo.type === "video" && p.demo.url) {
+            media = el(
+              "div",
+              { className: "preview" },
+              el("video", {
+                src: p.demo.url,
+                autoplay: true,
+                loop: true,
+                muted: true,
+                playsInline: true,
+              }),
+            );
+          } else {
+            if (p.image)
+              inner.push(
+                el("img", {
+                  src: p.image,
+                  alt: p.title + " screenshot",
+                  loading: "lazy",
+                }),
+              );
+            else
+              inner.push(
+                el("span", {
+                  className: "ph",
+                  textContent: p.title
+                    .split(" ")
+                    .map((w) => w[0])
+                    .join("")
+                    .slice(0, 3),
+                }),
+              );
+            if (p.demo.type === "iframe") {
+              inner.push(
+                el("span", { className: "play", textContent: "Run live demo" }),
+              );
+              media = el(
+                "button",
+                {
+                  className: "preview",
+                  ariaLabel: "Run live demo of " + p.title,
+                },
+                inner,
+              );
+              media.onclick = () => openDemo(p);
+            } else media = el("div", { className: "preview" }, inner);
+          }
+          const btns = el("div", { className: "btns" });
+          if (p.demo.type === "iframe") {
+            const b = el("button", {
+              className: "btn primary",
+              textContent: "Live demo",
+            });
+            b.onclick = () => openDemo(p);
+            btns.append(b);
+          } else if (p.demo.url) {
+            btns.append(
+              el("a", {
+                className: "btn primary",
+                href: p.demo.url,
+                target: "_blank",
+                rel: "noopener",
+                textContent: "Open live site",
+              }),
+            );
+          }
+          if (p.repo)
+            btns.append(
+              el("a", {
+                className: "btn",
+                href: p.repo,
+                target: "_blank",
+                rel: "noopener",
+                textContent: "Source code",
+              }),
+            );
+          grid.append(
+            el("article", { className: "card" }, [
+              media,
+              el("div", { className: "body" }, [
+                el("h3", { textContent: p.title }),
+                el("p", { textContent: p.problem }),
+                el(
+                  "ul",
+                  { className: "tags" },
+                  p.stack.map((t) => el("li", { textContent: t })),
+                ),
+                btns,
+              ]),
+            ]),
+          );
+        });
+
+      /* all projects: search + tag filter + show more (featured stay fixed above) */
+      const rest = C.projects
+        .filter((p) => !p.featured)
+        .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+      const LIMIT = 6;
+      let query = "",
+        tag = "All",
+        expanded = false;
+      function compact(p) {
+        const btns = el("div", { className: "btns" });
+        if (p.demo && p.demo.type === "iframe") {
+          const b = el("button", {
+            className: "btn primary",
+            textContent: "Live demo",
+          });
+          b.onclick = () => openDemo(p);
+          btns.append(b);
+        } else if (p.demo && p.demo.url) {
+          btns.append(
+            el("a", {
+              className: "btn primary",
+              href: p.demo.url,
+              target: "_blank",
+              rel: "noopener",
+              textContent: "Open live site",
+            }),
+          );
+        }
+        if (p.repo)
+          btns.append(
+            el("a", {
+              className: "btn",
+              href: p.repo,
+              target: "_blank",
+              rel: "noopener",
+              textContent: "Source code",
+            }),
+          );
+        return el("article", { className: "row" }, [
+          el("h4", { textContent: p.title }),
+          el("p", { textContent: p.problem }),
+          el(
+            "ul",
+            { className: "tags" },
+            p.stack.map((t) => el("li", { textContent: t })),
+          ),
+          btns,
+        ]);
+      }
+      function renderList() {
+        const list = $("projectList");
+        list.replaceChildren();
+        const matches = rest.filter(
+          (p) =>
+            (tag === "All" || p.stack.includes(tag)) &&
+            (p.title + " " + p.problem + " " + p.stack.join(" "))
+              .toLowerCase()
+              .includes(query),
+        );
+        const filtering = query !== "" || tag !== "All";
+        (filtering || expanded ? matches : matches.slice(0, LIMIT)).forEach(
+          (p) => list.append(compact(p)),
+        );
+        $("empty").hidden = matches.length > 0;
+        $("count").textContent = filtering
+          ? `${matches.length} of ${rest.length} projects`
+          : `${rest.length} projects, newest first`;
+        const more = $("more");
+        more.hidden = filtering || matches.length <= LIMIT;
+        more.textContent = expanded
+          ? "Show fewer"
+          : `Show all (${matches.length})`;
+      }
+      if (rest.length) {
+        const tags = [
+          "All",
+          ...[...new Set(rest.flatMap((p) => p.stack))].sort((a, b) =>
+            a.localeCompare(b),
+          ),
+        ];
+        tags.forEach((t) => {
+          const b = el("button", {
+            className: "fchip",
+            textContent: t,
+            type: "button",
+          });
+          b.setAttribute("aria-pressed", t === "All");
+          b.onclick = () => {
+            tag = t;
+            document
+              .querySelectorAll(".fchip")
+              .forEach((c) =>
+                c.setAttribute("aria-pressed", c.textContent === t),
+              );
+            renderList();
+          };
+          $("fchips").append(b);
+        });
+        $("q").addEventListener("input", (e) => {
+          query = e.target.value.trim().toLowerCase();
+          renderList();
+        });
+        $("more").onclick = () => {
+          expanded = !expanded;
+          renderList();
+        };
+        renderList();
+      } else $("allProjects").remove();
+
+      /* skills */
+      Object.entries(C.skills).forEach(([group, items]) => {
+        $("skillGrid").append(
+          el("div", {}, [
+            el("h3", { textContent: group }),
+            el(
+              "ul",
+              { className: "chips" },
+              items.map((i) => el("li", { textContent: i })),
+            ),
+          ]),
+        );
+      });
+
+      /* about, contact, footer */
+      C.about.forEach((t) =>
+        $("aboutText").append(el("p", { textContent: t })),
+      );
+      $("learning").textContent = C.learning;
+      $("mail").href = "mailto:" + C.links.email;
+      $("mail").textContent = C.links.email;
+      Object.entries(C.links)
+        .filter(([k]) => k !== "email")
+        .forEach(([k, v]) =>
+          $("links").append(
+            el("a", {
+              href: v,
+              target: "_blank",
+              rel: "noopener",
+              textContent: k[0].toUpperCase() + k.slice(1),
+            }),
+          ),
+        );
+      $("foot").textContent = `© ${new Date().getFullYear()} ${C.name}`;
+
+      /* hide sections not listed */
+      ["projects", "skills", "about", "contact"].forEach((s) => {
+        if (!has(s)) $(s).remove();
+      });
+    </script>
+  </body>
+</html>
