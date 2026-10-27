@@ -3,10 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Zaky Azhari – Junior Developer</title>
+    <title>Your Name – Junior Developer</title>
     <meta
       name="description"
       content="Portfolio of a junior developer: C++, Python, JavaScript, React, Vue."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M6 4l18 12h16L58 4l2 30c0 14-13 26-28 26S4 48 4 34z' fill='%23f08a3c'/%3E%3Cpath d='M10 12l10 7-8 6zM54 12l-10 7 8 6z' fill='%23f6b88a'/%3E%3Cpath d='M32 60C20 60 10 52 6 42c8 4 18 2 26 10 8-8 18-6 26-10-4 10-14 18-26 18z' fill='%23fff'/%3E%3Ccircle cx='22' cy='32' r='4' fill='%232a2220'/%3E%3Ccircle cx='42' cy='32' r='4' fill='%232a2220'/%3E%3Ccircle cx='23.2' cy='30.8' r='1.3' fill='%23fff'/%3E%3Ccircle cx='43.2' cy='30.8' r='1.3' fill='%23fff'/%3E%3Cellipse cx='32' cy='45' rx='4.5' ry='3.2' fill='%232a2220'/%3E%3Ccircle cx='14' cy='41' r='3.5' fill='%23ff9fa8' opacity='.7'/%3E%3Ccircle cx='50' cy='41' r='3.5' fill='%23ff9fa8' opacity='.7'/%3E%3C/svg%3E"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -244,13 +249,55 @@
         padding: 6px 14px;
         font: 500 13px var(--mono);
       }
-      button.preview {
-        cursor: pointer;
+      .preview iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1280px;
+        height: 800px;
+        border: 0;
+        transform-origin: 0 0;
+        pointer-events: none;
+        background: #fff;
+        opacity: 0;
+        transition: opacity 0.5s;
       }
-      button.preview:hover .play {
+      .preview iframe.on {
+        opacity: 1;
+      }
+      .hit {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        background: none;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        display: block;
+      }
+      .play {
+        z-index: 3;
+        pointer-events: none;
+      }
+      .preview:hover .play,
+      .hit:focus-visible ~ .play {
         background: var(--accent);
         color: var(--on-accent);
         border-color: var(--accent);
+      }
+      .badge {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        z-index: 3;
+        background: var(--bg);
+        color: var(--accent);
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        padding: 3px 11px;
+        font: 500 12px var(--mono);
       }
       .body {
         padding: 22px;
@@ -381,6 +428,54 @@
       }
       #more {
         margin-top: 20px;
+      }
+      .feed {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-left: 1px solid var(--line);
+      }
+      .feed li {
+        position: relative;
+        padding: 0 0 22px 24px;
+      }
+      .feed li::before {
+        content: "";
+        position: absolute;
+        left: -5px;
+        top: 7px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .feed .meta {
+        font: 500 12px var(--mono);
+        color: var(--muted);
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .feed .meta a {
+        color: var(--text);
+        text-decoration: none;
+      }
+      .feed .meta a:hover {
+        color: var(--accent);
+      }
+      .feed .msg {
+        margin: 4px 0 0;
+        font-size: 15px;
+      }
+      .feed .msg a {
+        text-decoration: none;
+      }
+      .feed .msg a:hover {
+        text-decoration: underline;
+      }
+      .feednote {
+        color: var(--muted);
+        font-size: 14px;
       }
       .skills {
         display: grid;
@@ -534,31 +629,39 @@
             Each one runs live. Open the demo to try it here, or visit the
             deployed app.
           </p>
-          <div class="grid" id="projectGrid"></div>
-          <div class="all" id="allProjects">
-            <h3>All projects</h3>
-            <div class="tools">
-              <input
-                class="search"
-                id="q"
-                type="search"
-                placeholder="Search by name, topic or tech"
-                aria-label="Search projects"
-              />
-              <div
-                class="fchips"
-                id="fchips"
-                role="group"
-                aria-label="Filter by technology"
-              ></div>
-            </div>
-            <p class="count" id="count" aria-live="polite"></p>
-            <div class="rows" id="projectList"></div>
-            <p class="empty" id="empty" hidden>
-              No projects match. Clear the search or pick another technology.
-            </p>
-            <button class="btn" id="more"></button>
+          <div class="tools">
+            <input
+              class="search"
+              id="q"
+              type="search"
+              placeholder="Search by name, topic or tech"
+              aria-label="Search projects"
+            />
+            <div
+              class="fchips"
+              id="fchips"
+              role="group"
+              aria-label="Filter by technology"
+            ></div>
           </div>
+          <p class="count" id="count" aria-live="polite"></p>
+          <div class="grid" id="projectGrid"></div>
+          <p class="empty" id="empty" hidden>
+            No projects match. Clear the search or pick another technology.
+          </p>
+          <button class="btn" id="more"></button>
+        </div>
+      </section>
+
+      <section id="activity">
+        <div class="wrap">
+          <h2>Recent activity</h2>
+          <p class="sub">
+            Latest commits across my public repositories, pulled live from
+            GitHub.
+          </p>
+          <ul class="feed" id="feed"></ul>
+          <p class="feednote" id="feednote" hidden></p>
         </div>
       </section>
 
@@ -621,124 +724,92 @@
         role: "Junior Developer",
         headline: "I build things that run, then explain how.",
         pitch:
-          "Junior developer working in C++, Python, JavaScript, React and Vue. I like small, finished projects with a live demo you can click.",
-        status: "Open to junior roles",
+          "Junior developer with a maintenance-engineering background. I build small, finished web tools you can try in the browser, from schedulers to stats explainers.",
+        status: "Open to software development roles",
         accent: "#7c8cff",
-        theme: "dark", // "dark" or "light" (visitor toggle overrides)
-        sections: ["projects", "skills", "about", "contact"],
+        theme: "dark",
+        liveThumbs: true, // project cards show a live, scaled preview of the deployed site
+        activity: { username: "bnbcast", max: 6 }, // latest commit from each recently pushed public repo
+        sections: ["projects", "activity", "skills", "about", "contact"],
         links: {
-          github: "https://github.com/yourname",
+          github: "https://github.com/bnbcast",
           linkedin: "https://linkedin.com/in/yourname",
           email: "zakyazhari393@gmail.com",
         },
+        /* featured:true = shown first with a badge. thumb:false = no live thumbnail (use for sites that block embedding or sleep). */
         projects: [
           {
             featured: true,
-            date: "2026-09",
-            title: "Task Board",
+            title: "Inference Time Calculator",
             problem:
-              "A drag-and-drop kanban board that keeps state in the browser, built to learn React state management.",
-            stack: ["React", "Vite", "CSS"],
-            repo: "https://github.com/yourname/task-board",
+              "Works out how many parallel AI attempts you need for at least one to fix a bug, with every step of the math shown.",
+            stack: ["JavaScript", "Probability", "Data viz"],
+            repo: "https://github.com/bnbcast/InferenceTimeCalc",
             image: "",
-            demo: { type: "iframe", url: "https://example.com" },
+            demo: {
+              type: "iframe",
+              url: "https://bnbcast.github.io/InferenceTimeCalc/",
+            },
           },
           {
             featured: true,
-            date: "2026-07",
-            title: "Weather Dashboard",
+            title: "Word Detective",
             problem:
-              "Search any city and see a 5-day forecast, with a Vue component per day and cached API calls.",
-            stack: ["Vue", "REST API", "Netlify"],
-            repo: "https://github.com/yourname/weather",
+              "Ranks the words that give away AI-written text by comparing word frequencies against human answers, using Laplace smoothing.",
+            stack: ["JavaScript", "Statistics", "Data viz"],
+            repo: "https://github.com/bnbcast/Word-Detective",
             image: "",
-            demo: { type: "iframe", url: "https://example.com" },
+            demo: {
+              type: "iframe",
+              url: "https://bnbcast.github.io/Word-Detective/",
+            },
           },
           {
             featured: true,
-            date: "2026-05",
-            title: "CSV Cleaner",
+            title: "Preventive Maintenance Scheduler",
             problem:
-              "Streamlit app that finds duplicates and bad rows in a CSV and exports a cleaned file. Free host sleeps, so the first load is slow.",
-            stack: ["Python", "Pandas", "Streamlit"],
-            repo: "https://github.com/yourname/csv-cleaner",
+              "Moves an Excel-based preventive maintenance cycle onto the web, with an asset register, load view and a read-only CLI-style demo. In English and Indonesian.",
+            stack: ["JavaScript", "Scheduling", "EN/ID i18n"],
+            repo: "https://github.com/bnbcast/JadwalTahunan-PM",
             image: "",
-            demo: { type: "link", url: "https://example.com" },
-          },
-          /* Projects without featured:true go in the searchable "All projects" list. date is optional (newest first). */
-          {
-            date: "2026-08",
-            title: "Portfolio Site",
-            problem: "This site. One HTML file driven by a config block.",
-            stack: ["JavaScript", "CSS"],
-            repo: "https://github.com/yourname/portfolio",
-            demo: { type: "link", url: "https://example.com" },
+            demo: {
+              type: "iframe",
+              url: "https://bnbcast.github.io/JadwalTahunan-PM/",
+            },
           },
           {
-            date: "2026-06",
-            title: "Chess Move Validator",
+            title: "Autodesk Inventor Part Showcase",
             problem:
-              "Rules engine that checks legal moves, written in C++ with unit tests.",
-            stack: ["C++", "CMake"],
-            repo: "https://github.com/yourname/chess-validator",
-            demo: { type: "none" },
-          },
-          {
-            date: "2026-04",
-            title: "Expense Tracker",
-            problem:
-              "Vue app that groups spending by category and charts it per month.",
-            stack: ["Vue", "Chart.js"],
-            repo: "https://github.com/yourname/expenses",
-            demo: { type: "iframe", url: "https://example.com" },
-          },
-          {
-            date: "2026-03",
-            title: "Discord Quiz Bot",
-            problem:
-              "Python bot that runs trivia rounds and keeps a leaderboard.",
-            stack: ["Python", "SQLite"],
-            repo: "https://github.com/yourname/quiz-bot",
-            demo: { type: "none" },
-          },
-          {
-            date: "2026-02",
-            title: "Markdown Notes",
-            problem: "React notes app with live Markdown preview and search.",
-            stack: ["React", "Markdown"],
-            repo: "https://github.com/yourname/notes",
-            demo: { type: "iframe", url: "https://example.com" },
-          },
-          {
-            date: "2026-01",
-            title: "Sorting Visualizer",
-            problem:
-              "Animated bubble, merge and quick sort in plain JavaScript.",
-            stack: ["JavaScript", "Canvas"],
-            repo: "https://github.com/yourname/sorting",
-            demo: { type: "link", url: "https://example.com" },
-          },
-          {
-            date: "2025-11",
-            title: "Tiny Shell",
-            problem:
-              "A Unix-style shell in C++ with pipes and basic job control.",
-            stack: ["C++", "Linux"],
-            repo: "https://github.com/yourname/tiny-shell",
-            demo: { type: "none" },
+              "A showcase page for a part I modelled while learning Autodesk Inventor, with sketch, features and specs.",
+            stack: ["Autodesk Inventor", "CAD", "JavaScript"],
+            repo: "https://github.com/bnbcast/2d-inventor",
+            image: "",
+            demo: {
+              type: "iframe",
+              url: "https://bnbcast.github.io/2d-inventor/",
+            },
           },
         ],
         skills: {
-          Languages: ["C++", "Python", "JavaScript"],
-          Frontend: ["React", "Vue", "HTML & CSS"],
-          Tools: ["Git", "GitHub Actions", "Vercel", "Linux"],
+          Languages: ["JavaScript", "HTML & CSS", "Python", "C++"],
+          Concepts: [
+            "Probability & statistics",
+            "Data visualization",
+            "Scheduling logic",
+          ],
+          Tools: [
+            "Git & GitHub",
+            "GitHub Pages",
+            "VS Code",
+            "Autodesk Inventor",
+          ],
         },
         about: [
-          "Replace this with 3 or 4 sentences: how you started, what you enjoy building, and what kind of team you want to join.",
-          "Mention one concrete thing you learned the hard way. It tells a recruiter more than a list of buzzwords.",
+          "I come from a maintenance-engineering background, where the work lived in spreadsheets and schedules. I got into code by asking how to make those tools faster to use and easier to understand.",
+          "I like projects where a clear idea becomes a working page: pick a problem, explain the math, ship it with a live demo.",
         ],
         learning:
-          "Currently learning: C++ to WebAssembly, so my C++ projects can run in the browser.",
+          "Currently learning: C++ and Python, and how to turn them into browser demos.",
       };
       /* ============================================================ */
 
@@ -842,128 +913,131 @@
         if (e.target === dlg) closeDemo();
       });
 
-      /* projects */
-      const grid = $("projectGrid");
-      C.projects
-        .filter((p) => p.featured)
-        .forEach((p) => {
-          let media;
-          const inner = [];
-          if (p.demo.type === "video" && p.demo.url) {
-            media = el(
-              "div",
-              { className: "preview" },
-              el("video", {
-                src: p.demo.url,
-                autoplay: true,
-                loop: true,
-                muted: true,
-                playsInline: true,
-              }),
-            );
-          } else {
-            if (p.image)
-              inner.push(
-                el("img", {
-                  src: p.image,
-                  alt: p.title + " screenshot",
-                  loading: "lazy",
-                }),
-              );
-            else
-              inner.push(
-                el("span", {
-                  className: "ph",
-                  textContent: p.title
-                    .split(" ")
-                    .map((w) => w[0])
-                    .join("")
-                    .slice(0, 3),
-                }),
-              );
-            if (p.demo.type === "iframe") {
-              inner.push(
-                el("span", { className: "play", textContent: "Run live demo" }),
-              );
-              media = el(
-                "button",
-                {
-                  className: "preview",
-                  ariaLabel: "Run live demo of " + p.title,
-                },
-                inner,
-              );
-              media.onclick = () => openDemo(p);
-            } else media = el("div", { className: "preview" }, inner);
-          }
-          const btns = el("div", { className: "btns" });
-          if (p.demo.type === "iframe") {
-            const b = el("button", {
-              className: "btn primary",
-              textContent: "Live demo",
-            });
-            b.onclick = () => openDemo(p);
-            btns.append(b);
-          } else if (p.demo.url) {
-            btns.append(
-              el("a", {
-                className: "btn primary",
-                href: p.demo.url,
-                target: "_blank",
-                rel: "noopener",
-                textContent: "Open live site",
-              }),
-            );
-          }
-          if (p.repo)
-            btns.append(
-              el("a", {
-                className: "btn",
-                href: p.repo,
-                target: "_blank",
-                rel: "noopener",
-                textContent: "Source code",
-              }),
-            );
-          grid.append(
-            el("article", { className: "card" }, [
-              media,
-              el("div", { className: "body" }, [
-                el("h3", { textContent: p.title }),
-                el("p", { textContent: p.problem }),
-                el(
-                  "ul",
-                  { className: "tags" },
-                  p.stack.map((t) => el("li", { textContent: t })),
-                ),
-                btns,
-              ]),
-            ]),
-          );
-        });
-
-      /* all projects: search + tag filter + show more (featured stay fixed above) */
-      const rest = C.projects
-        .filter((p) => !p.featured)
-        .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-      const LIMIT = 6;
+      /* projects: one searchable grid, featured first, live thumbnails */
+      const LIMIT = 6,
+        FW = 1280;
+      const projects = C.projects
+        .map((p, i) => ({ ...p, _i: i }))
+        .sort(
+          (a, b) =>
+            (b.featured ? 1 : 0) - (a.featured ? 1 : 0) ||
+            (b.date || "").localeCompare(a.date || "") ||
+            a._i - b._i,
+        );
       let query = "",
         tag = "All",
         expanded = false;
-      function compact(p) {
+
+      /* scale each 1280px-wide iframe to fit its card; load it only when scrolled near */
+      const ro = new ResizeObserver((es) =>
+        es.forEach((e) => {
+          const f = e.target.querySelector("iframe");
+          if (f) f.style.transform = `scale(${e.contentRect.width / FW})`;
+        }),
+      );
+      const io = new IntersectionObserver(
+        (es, o) =>
+          es.forEach((e) => {
+            if (!e.isIntersecting) return;
+            const f = e.target.querySelector("iframe");
+            if (f && !f.getAttribute("src")) f.src = f.dataset.src;
+            o.unobserve(e.target);
+          }),
+        { rootMargin: "200px" },
+      );
+
+      function card(p) {
+        const url = p.demo && p.demo.url,
+          type = p.demo && p.demo.type;
+        const preview = el("div", { className: "preview" });
+        if (type === "video" && url) {
+          preview.append(
+            el("video", {
+              src: url,
+              autoplay: true,
+              loop: true,
+              muted: true,
+              playsInline: true,
+            }),
+          );
+        } else {
+          if (p.image)
+            preview.append(
+              el("img", {
+                src: p.image,
+                alt: p.title + " screenshot",
+                loading: "lazy",
+              }),
+            );
+          else
+            preview.append(
+              el("span", {
+                className: "ph",
+                textContent: p.title
+                  .split(" ")
+                  .map((w) => w[0])
+                  .join("")
+                  .slice(0, 3),
+              }),
+            );
+          if (
+            C.liveThumbs &&
+            p.thumb !== false &&
+            url &&
+            (type === "iframe" || type === "link")
+          ) {
+            const f = el("iframe", {
+              title: p.title + " live preview",
+              tabIndex: -1,
+            });
+            f.dataset.src = url;
+            f.setAttribute("sandbox", "allow-scripts allow-same-origin");
+            f.setAttribute("aria-hidden", "true");
+            f.onload = () => f.classList.add("on");
+            preview.append(f);
+            ro.observe(preview);
+            io.observe(preview);
+          }
+          if (type === "iframe") {
+            const h = el("button", {
+              className: "hit",
+              ariaLabel: "Run live demo of " + p.title,
+            });
+            h.onclick = () => openDemo(p);
+            preview.append(
+              h,
+              el("span", { className: "play", textContent: "Run live demo" }),
+            );
+          } else if (url) {
+            preview.append(
+              el("a", {
+                className: "hit",
+                href: url,
+                target: "_blank",
+                rel: "noopener",
+                ariaLabel: "Open " + p.title,
+              }),
+              el("span", { className: "play", textContent: "Open live site" }),
+            );
+          }
+        }
+        if (p.featured)
+          preview.append(
+            el("span", { className: "badge", textContent: "Featured" }),
+          );
         const btns = el("div", { className: "btns" });
-        if (p.demo && p.demo.type === "iframe") {
+        if (type === "iframe") {
           const b = el("button", {
             className: "btn primary",
             textContent: "Live demo",
           });
           b.onclick = () => openDemo(p);
           btns.append(b);
-        } else if (p.demo && p.demo.url) {
+        } else if (url) {
           btns.append(
             el("a", {
               className: "btn primary",
-              href: p.demo.url,
+              href: url,
               target: "_blank",
               rel: "noopener",
               textContent: "Open live site",
@@ -980,21 +1054,27 @@
               textContent: "Source code",
             }),
           );
-        return el("article", { className: "row" }, [
-          el("h4", { textContent: p.title }),
-          el("p", { textContent: p.problem }),
-          el(
-            "ul",
-            { className: "tags" },
-            p.stack.map((t) => el("li", { textContent: t })),
-          ),
-          btns,
+        return el("article", { className: "card" }, [
+          preview,
+          el("div", { className: "body" }, [
+            el("h3", { textContent: p.title }),
+            el("p", { textContent: p.problem }),
+            el(
+              "ul",
+              { className: "tags" },
+              p.stack.map((t) => el("li", { textContent: t })),
+            ),
+            btns,
+          ]),
         ]);
       }
+
       function renderList() {
-        const list = $("projectList");
-        list.replaceChildren();
-        const matches = rest.filter(
+        ro.disconnect();
+        io.disconnect();
+        const grid = $("projectGrid");
+        grid.replaceChildren();
+        const matches = projects.filter(
           (p) =>
             (tag === "All" || p.stack.includes(tag)) &&
             (p.title + " " + p.problem + " " + p.stack.join(" "))
@@ -1003,53 +1083,169 @@
         );
         const filtering = query !== "" || tag !== "All";
         (filtering || expanded ? matches : matches.slice(0, LIMIT)).forEach(
-          (p) => list.append(compact(p)),
+          (p) => grid.append(card(p)),
         );
         $("empty").hidden = matches.length > 0;
         $("count").textContent = filtering
-          ? `${matches.length} of ${rest.length} projects`
-          : `${rest.length} projects, newest first`;
+          ? `${matches.length} of ${projects.length} projects`
+          : `${projects.length} projects`;
         const more = $("more");
         more.hidden = filtering || matches.length <= LIMIT;
         more.textContent = expanded
           ? "Show fewer"
           : `Show all (${matches.length})`;
       }
-      if (rest.length) {
-        const tags = [
-          "All",
-          ...[...new Set(rest.flatMap((p) => p.stack))].sort((a, b) =>
-            a.localeCompare(b),
-          ),
-        ];
-        tags.forEach((t) => {
-          const b = el("button", {
-            className: "fchip",
-            textContent: t,
-            type: "button",
-          });
-          b.setAttribute("aria-pressed", t === "All");
-          b.onclick = () => {
-            tag = t;
-            document
-              .querySelectorAll(".fchip")
-              .forEach((c) =>
-                c.setAttribute("aria-pressed", c.textContent === t),
-              );
-            renderList();
-          };
-          $("fchips").append(b);
+
+      const allTags = [
+        "All",
+        ...[...new Set(projects.flatMap((p) => p.stack))].sort((a, b) =>
+          a.localeCompare(b),
+        ),
+      ];
+      allTags.forEach((t) => {
+        const b = el("button", {
+          className: "fchip",
+          textContent: t,
+          type: "button",
         });
-        $("q").addEventListener("input", (e) => {
-          query = e.target.value.trim().toLowerCase();
-          renderList();
-        });
-        $("more").onclick = () => {
-          expanded = !expanded;
+        b.setAttribute("aria-pressed", t === "All");
+        b.onclick = () => {
+          tag = t;
+          document
+            .querySelectorAll(".fchip")
+            .forEach((c) =>
+              c.setAttribute("aria-pressed", c.textContent === t),
+            );
           renderList();
         };
+        $("fchips").append(b);
+      });
+      $("q").addEventListener("input", (e) => {
+        query = e.target.value.trim().toLowerCase();
         renderList();
-      } else $("allProjects").remove();
+      });
+      $("more").onclick = () => {
+        expanded = !expanded;
+        renderList();
+      };
+      renderList();
+
+      /* activity feed: most recently pushed public repos + each one's latest commit, cached 30 minutes */
+      async function loadFeed() {
+        const A = C.activity || {},
+          list = $("feed"),
+          note = $("feednote");
+        if (!A.username) return;
+        const profile = el("a", {
+          href: "https://github.com/" + A.username,
+          target: "_blank",
+          rel: "noopener",
+          textContent: "See my GitHub profile",
+        });
+        const KEY = "ghfeed2:" + A.username,
+          TTL = 30 * 60 * 1000;
+        let cached = null,
+          items = null;
+        try {
+          cached = JSON.parse(localStorage.getItem(KEY));
+        } catch (e) {}
+        if (
+          cached &&
+          cached.data &&
+          cached.data.length &&
+          Date.now() - cached.t < TTL
+        )
+          items = cached.data;
+        else {
+          try {
+            const gh = (path) =>
+              fetch("https://api.github.com" + path).then((r) => {
+                if (!r.ok) throw new Error(r.status);
+                return r.json();
+              });
+            const repos = (
+              await gh(`/users/${A.username}/repos?sort=pushed&per_page=30`)
+            )
+              .filter((r) => !r.fork && !r.archived)
+              .slice(0, A.max || 6);
+            items = await Promise.all(
+              repos.map(async (r) => {
+                let text = r.description || "Updated this repository",
+                  at = r.pushed_at,
+                  href = r.html_url;
+                try {
+                  const [c] = await gh(
+                    `/repos/${r.full_name}/commits?per_page=1`,
+                  );
+                  if (c) {
+                    text = c.commit.message.split("\n")[0];
+                    at = (c.commit.author && c.commit.author.date) || at;
+                    href = c.html_url;
+                  }
+                } catch (e) {}
+                return { repo: r.name, repoUrl: r.html_url, text, href, at };
+              }),
+            );
+            items.sort((x, y) => new Date(y.at) - new Date(x.at));
+            if (items.length) {
+              try {
+                localStorage.setItem(
+                  KEY,
+                  JSON.stringify({ t: Date.now(), data: items }),
+                );
+              } catch (e) {}
+            }
+          } catch (e) {
+            items = cached && cached.data ? cached.data : null;
+          }
+        }
+        if (!items) {
+          list.hidden = true;
+          note.hidden = false;
+          note.append("Couldn't load activity right now. ", profile);
+          return;
+        }
+        if (!items.length) {
+          list.hidden = true;
+          note.hidden = false;
+          note.append("No public repositories yet. ", profile);
+          return;
+        }
+        const ago = (d) => {
+          const s = (Date.now() - new Date(d)) / 1000;
+          if (s < 3600) return Math.max(1, Math.round(s / 60)) + " min ago";
+          if (s < 86400) return Math.round(s / 3600) + " h ago";
+          const n = Math.round(s / 86400);
+          return n + (n === 1 ? " day ago" : " days ago");
+        };
+        items.forEach((i) =>
+          list.append(
+            el("li", {}, [
+              el("div", { className: "meta" }, [
+                el("a", {
+                  href: i.repoUrl,
+                  target: "_blank",
+                  rel: "noopener",
+                  textContent: i.repo,
+                }),
+                el("span", { textContent: "Latest commit" }),
+                el("time", { dateTime: i.at, textContent: ago(i.at) }),
+              ]),
+              el(
+                "p",
+                { className: "msg" },
+                el("a", {
+                  href: i.href,
+                  target: "_blank",
+                  rel: "noopener",
+                  textContent: i.text,
+                }),
+              ),
+            ]),
+          ),
+        );
+      }
+      if (has("activity")) loadFeed();
 
       /* skills */
       Object.entries(C.skills).forEach(([group, items]) => {
@@ -1087,7 +1283,7 @@
       $("foot").textContent = `© ${new Date().getFullYear()} ${C.name}`;
 
       /* hide sections not listed */
-      ["projects", "skills", "about", "contact"].forEach((s) => {
+      ["projects", "activity", "skills", "about", "contact"].forEach((s) => {
         if (!has(s)) $(s).remove();
       });
     </script>
