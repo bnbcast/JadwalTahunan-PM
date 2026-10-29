@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import Breadcrumb from "../../src/shared/Breadcrumb.jsx";
+import Breadcrumb from "./Breadcrumb.jsx";
 import machines from "./machines.json";
 
 const months = {
